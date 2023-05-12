@@ -28,10 +28,10 @@ def create_line_chart():
     plt.legend(legend_handles, legend_labels)
 
     # Diagramm als .png-Datei speichern
-    plt.savefig('diagrams/linien_diagramm.png')
+    plt.tight_layout(savefig('diagrams/linien_diagramm.png', dpi=72))
+    return plt
 
-    plt.show()
 
 
 # Aufruf der Funktion zum Erstellen des Linien-Diagramms
-create_line_chart()
+
