@@ -59,5 +59,5 @@ def getBericht2():
     bericht += f"der geringste Anstiegverzeichnet ({lowesttwohunung_change}%)"
     return bericht
 
-print(getBericht1())
-print(getBericht2())
+#print(getBericht1())
+#print(getBericht2())
