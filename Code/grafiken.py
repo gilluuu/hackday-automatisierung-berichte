@@ -17,7 +17,7 @@ def create_line_chart():
     plt.gca().invert_xaxis()
 
     # Linienfarben als Hex-Werte angeben
-    colors = ['#222017','#6E6E70', '#B4B4B6', '#F4B2A3', '#E82038', '#E86E61'] 
+    colors = ['#222017','#6E6E70', '#B4B4B6', '#F4B2A3', '#E82038', '#E86E61']
 
     for i, line in enumerate(plt.gca().get_lines()):
         line.set_color(colors[i])
@@ -26,12 +26,10 @@ def create_line_chart():
     legend_labels = df.columns
     legend_handles = [plt.Line2D([], [], color=colors[i]) for i in range(len(legend_labels))]
     plt.legend(legend_handles, legend_labels)
-
     # Diagramm als .png-Datei speichern
-    plt.tight_layout(savefig('diagrams/linien_diagramm.png', dpi=72))
-    return plt
+    plt.grid(axis="y", color = "black")
+
+    plt.savefig('./diagrams/linien_diagramm.png', dpi=72, transparent=True)
 
 
-
-# Aufruf der Funktion zum Erstellen des Linien-Diagramms
-
+create_line_chart()
