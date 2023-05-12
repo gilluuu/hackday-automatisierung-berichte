@@ -95,6 +95,7 @@ def getChart1():
     df = df[columns]
     
     df.columns = ['Jahr', '1 Zimmer', '2 Zimmer', '3 Zimmer', '4 Zimmer', '5 Zimmer', 'Total']
+    df['Jahr'] = df['Jahr'].apply(lambda x: int(x))
     df.set_index('Jahr', inplace=True, drop=True)
     
     for column in df.columns:
