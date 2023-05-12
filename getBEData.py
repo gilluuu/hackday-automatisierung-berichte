@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
+
+# Importieren der nötigen Erweiterungen. 
 import pandas as pd
 
+# Funktion zum Extrahieren der Daten zur Teuerung. 
 def getTableTeuerung(df_roh):
     schnittmarken = df_roh[df_roh['Teuerung'] == 'STTE'].index
 
@@ -16,6 +19,7 @@ def getTableTeuerung(df_roh):
     df_teuerung = df_teuerung.iloc[2:]
     return df_teuerung 
 
+# Funktion zum Extrahieren der Daten zum Index. 
 def getTableIndex(df_roh):
     schnittmarken = df_roh[df_roh['Teuerung'] == 'STTE'].index
     
@@ -31,9 +35,9 @@ def getTableIndex(df_roh):
     df_index.columns = columns
     df_index = df_index.iloc[2:]
     df_index = df_index.sort_values(by='STTE_ZI', ascending=False)
-    
     return df_index
 
+#Funktion zum Extrahieren der Daten zum Durchschnitt.
 def getTableDurchschnitt(df_roh):
     schnittmarken = df_roh[df_roh['Teuerung'] == 'STTE'].index
     
@@ -49,6 +53,7 @@ def getTableDurchschnitt(df_roh):
     df_durchschnitt = df_durchschnitt.iloc[2:]
     return df_durchschnitt
 
+# Funktion zum Generieren der Tabelle 1.
 def getTable1():
     df_roh = pd.read_excel('data/Daten_Mietpreise.xlsx')
     df = getTableIndex(df_roh)
@@ -57,11 +62,10 @@ def getTable1():
     df = df[columns]
     df.index = df['STTE_ZI']
     df = df.sort_index(ascending=False)
-    df = df.iloc[:5].transpose()#print()
+    df = df.iloc[:5].transpose()
     df.columns = df.iloc[0]
     df = df.iloc[1:]
     df = df.reset_index()
-    df['index'] = indexneu[1:]
     df.columns = [x for x in df.columns]
     df['index'] = df['index'].apply(lambda x: x.split('_')[1] + ' Zimmer')
     df['index'] = df['index'].apply(lambda x: x.replace('Total Zimmer', 'Total'))
@@ -76,10 +80,11 @@ def getTable1():
     df['Veränderung in %'] = 100 - 100 * df.iloc[:,1] / df.iloc[:,0]
     
     # Werte auf eine Nachkommastelle runden.
-    
+    for column in df.columns:
+        df[column] = df[column].apply(lambda x: round(x,2))
     return(df)
 
-
+# Funktion zum Generieren des Chart 1. 
 def getChart1():
     df_roh = pd.read_excel('data/Daten_Mietpreise.xlsx')
     df = getTableIndex(df_roh)
