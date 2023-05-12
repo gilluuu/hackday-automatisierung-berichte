@@ -12,7 +12,8 @@ def home():
 
 @app.route('/run-script', methods=['POST'])
 def run_script():
-    output = subprocess.check_output(['python', 'code/pdfgeneration.py'])
+    output = subprocess.check_output(['python', 'text.py'])
+    print(type(output))
     return output
 
 if __name__ == '__main__':
