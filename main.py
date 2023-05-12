@@ -15,7 +15,7 @@ def run_script():
     import Code.getBEData as bedata
     df = bedata.getChart1()
     print(df) 
-    return 'Done'
+    return 'Skript beendet'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
