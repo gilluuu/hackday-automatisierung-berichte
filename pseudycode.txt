@@ -1,0 +1,3 @@
+wenn index grösser als vorhjahr index dann das wort 'zuhname' einfügen
+falls kleiner dann wort 'Abnahme
+
