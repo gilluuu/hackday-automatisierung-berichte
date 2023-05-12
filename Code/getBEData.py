@@ -55,10 +55,10 @@ def getTableDurchschnitt(df_roh):
 
 # Funktion zum Generieren der Tabelle 1.
 def getTable1():
-    df_roh = pd.read_excel('data/Daten_Mietpreise.xlsx')
+    url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3BcxRrekN-89urzI14E0BF34fK9EthqfGn2Oi1UhLxMfjl6Sh1HQVawLTZDzEo_nFgu-OW0uPL0Id/pub?gid=1864584239&single=true&output=csv'
+    df_roh = pd.read_csv(url)
     df = getTableIndex(df_roh)
     columns = ['STTE_ZI', 'Total_1', 'Total_2', 'Total_3', 'Total_4', 'Total_5', 'Total_Total']
-
     df = df[columns]
     df.index = df['STTE_ZI']
     df = df.sort_index(ascending=False)
@@ -66,19 +66,19 @@ def getTable1():
     df.columns = df.iloc[0]
     df = df.iloc[1:]
     df = df.reset_index()
-    df.columns = [x for x in df.columns]
     df['index'] = df['index'].apply(lambda x: x.split('_')[1] + ' Zimmer')
     df['index'] = df['index'].apply(lambda x: x.replace('Total Zimmer', 'Total'))
     df.index = df['index']
     del df['index']
     df.columns = ['November ' + str(x) for x in df.columns]
-    
+
     for column in df.columns:
+        df[column] = df[column].apply(lambda x: float(x.replace(',', '.')))
         df[column] = 100 * df[column]
-    
+
     # Veränderung berechnen. 
-    df['Veränderung in % zum Vorjahr'] = 100 - 100 * df.iloc[:,1] / df.iloc[:,0]
-    
+    df['Veränderung in %'] = 100 - 100 * df.iloc[:,1] / df.iloc[:,0]
+
     # Werte auf eine Nachkommastelle runden.
     for column in df.columns:
         df[column] = df[column].apply(lambda x: round(x,2))
@@ -86,7 +86,9 @@ def getTable1():
 
 # Funktion zum Generieren des Chart 1. 
 def getChart1():
-    df_roh = pd.read_excel('data/Daten_Mietpreise.xlsx')
+    url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3BcxRrekN-89urzI14E0BF34fK9EthqfGn2Oi1UhLxMfjl6Sh1HQVawLTZDzEo_nFgu-OW0uPL0Id/pub?gid=1864584239&single=true&output=csv'
+    df_roh = pd.read_csv(url)
+
     df = getTableIndex(df_roh)
     columns = ['STTE_ZI', 'Total_1', 'Total_2', 'Total_3', 'Total_4', 'Total_5', 'Total_Total']
 
@@ -94,4 +96,8 @@ def getChart1():
     
     df.columns = ['Jahr', '1 Zimmer', '2 Zimmer', '3 Zimmer', '4 Zimmer', '5 Zimmer', 'Total']
     df.set_index('Jahr', inplace=True, drop=True)
+    
+    for column in df.columns:
+        df[column] = df[column].apply(lambda x: float(x.replace(',', '.')))
+        df[column] = 100 * df[column]
     return(df)
