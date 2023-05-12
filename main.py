@@ -12,9 +12,10 @@ def home():
 
 @app.route('/run-script', methods=['POST'])
 def run_script():
-    output = subprocess.check_output(['python', 'text.py'])
-    print(type(output))
-    return output
+    import Code.getBEData as bedata
+    df = bedata.getChart1()
+    print(df) 
+    return 'Done'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', debug=True)
