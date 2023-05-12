@@ -10,7 +10,7 @@ lastyear = data[highestyear-1]
 
 gesamtindex = thisyear['Total']
 änderung_vorjahr = thisyear['Total'] - lastyear['Total']
-gesamtänderung = (thisyear['Total'] - 1) * 100
+gesamtänderung = "{:.2f}".format((thisyear['Total'] - 1) * 100)
 
 zunahme_text = ""
 if änderung_vorjahr > 0:
@@ -34,14 +34,11 @@ gesamtindex_str = "{:.2f}".format(gesamtindex*100)
 zimmer_über_str = ', '.join(str(i) for i in zimmer_über)
 zimmer_unter_str = ', '.join(str(i) for i in zimmer_unter)
 
-gesamtänderung_str = "{:.2f}".format(gesamtänderung)
-
 hihgestwohunung = max(thisyear, key=thisyear.get)
 hihgestwohunung_change = "{:.2f}".format((thisyear[hihgestwohunung] - 1) *100)
 
 lowestwohunung = min(thisyear, key=thisyear.get)
 lowesttwohunung_change = "{:.2f}".format((thisyear[lowestwohunung] - 1) *100)
-
 
 def getBericht1():
 # Bericht generieren
@@ -54,10 +51,10 @@ def getBericht1():
 def getBericht2():
 # Bericht generieren
     bericht = f"Seit der Basislegung November 2003 = 100, also im Zeitraum der letzten {highestyear - 2003} Jahre, "
-    bericht += f"stiegen die Wohnungsmietpreise in der Stadt Bern um insgesamt {gesamtänderung_str}%. Während die {hihgestwohunung}wohnungen " 
-    bericht += f"die stärkste Verteuerung erfuhren ({hihgestwohunung_change}%), wurde bei den {lowestwohunung}wohnungen"
-    bericht += f"der geringste Anstiegverzeichnet ({lowesttwohunung_change}%)"
+    bericht += f"stiegen die Wohnungsmietpreise in der Stadt Bern um insgesamt {gesamtänderung}%. Während die {hihgestwohunung}wohnungen " 
+    bericht += f"die stärkste Verteuerung erfuhren ({hihgestwohunung_change}%), wurde bei den {lowestwohunung}wohnungen "
+    bericht += f"der geringste Anstieg verzeichnet ({lowesttwohunung_change}%)."
     return bericht
 
-#print(getBericht1())
-#print(getBericht2())
+print('\n Bericht1: \n', getBericht1())
+print('\n Bericht2: \n', getBericht2())
