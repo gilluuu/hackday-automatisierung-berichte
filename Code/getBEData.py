@@ -77,7 +77,7 @@ def getTable1():
         df[column] = 100 * df[column]
     
     # Veränderung berechnen. 
-    df['Veränderung in %'] = 100 - 100 * df.iloc[:,1] / df.iloc[:,0]
+    df['Veränderung in % zum Vorjahr'] = 100 - 100 * df.iloc[:,1] / df.iloc[:,0]
     
     # Werte auf eine Nachkommastelle runden.
     for column in df.columns:
