@@ -1,37 +1,38 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from plotnine import ggplot, aes, geom_line, geom_bar
+from getBEData import getChart1
 
+# Funktion zum Erstellen des Linien-Diagramms und Speichern als .png-Datei
+def create_line_chart():
+    # Aufruf der Funktion getChart1() aus getBEData.py, um die Daten zu erhalten
+    df = getChart1()
 
+    # Linien-Diagramm erstellen
+    df.plot(kind='line')
 
-data = {'Name': ['John', 'Jane', 'Sue', 'Bob'],
-        'Age': [35, 28, 42, 21],
-        'Gender': ['M', 'F', 'F', 'M'],
-        'Salary': [50000, 75000, 60000, 40000]}
+    # Diagramm anpassen
+    plt.ylabel('Index')
 
+    # Tiefste Jahresangabe links anzeigen
+    plt.gca().invert_xaxis()
 
-data2 = {
-    'year': [2015, 2016, 2017, 2018, 2019, 2020],
-    'sales': [1000, 1500, 2000, 200, 3000, 3500]
-}
+    # Linienfarben als Hex-Werte angeben
+    colors = ['#222017','#6E6E70', '#B4B4B6', '#F4B2A3', '#E82038', '#E86E61'] 
 
-df = pd.DataFrame(data)
-df2 = pd.DataFrame(data2)
+    for i, line in enumerate(plt.gca().get_lines()):
+        line.set_color(colors[i])
 
-salary_bar = ggplot(df) + aes(x='Name', y='Salary') + geom_bar(stat='identity')
-sales_line = ggplot(df2) + aes(y= 'sales', x='year') + geom_line()
+    # Legende mit definierten Farben erstellen
+    legend_labels = df.columns
+    legend_handles = [plt.Line2D([], [], color=colors[i]) for i in range(len(legend_labels))]
+    plt.legend(legend_handles, legend_labels)
 
-salary_bar.save('diagrams/salary_bar_chart.png')
-sales_line.save('diagrams/sales_line.png')
+    # Diagramm als .png-Datei speichern
+    plt.savefig('diagrams/linien_diagramm.png')
 
-def create_sentence():
+    plt.show()
 
-    string = 'Der Berner Index der Wohnungsmietpreise erreicht im November 2022 einen Stand von 124,3 Punkten (Basis: November 2003 = 100), was einer Zunahme um 1,1% gegenüber dem Vorjahr entspricht.'
-    
-    return string
+    print("Datei erfolgreich gespeichert!")
 
-
-text = create_sentence()
-
-print(text)
-
+# Aufruf der Funktion zum Erstellen des Linien-Diagramms
+create_line_chart()
