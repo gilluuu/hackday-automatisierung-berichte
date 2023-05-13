@@ -32,7 +32,7 @@ def create_line_chart():
     # Diagramm als .png-Datei speichern
     plt.grid(axis="y", color = "black")
 
-    plt.savefig('./diagrams/linien_diagramm.png', dpi=72, transparent=True)
+    plt.savefig('Code/diagrams/linien_diagramm.png', dpi=72, transparent=True)
 
 def createtable1():
     df = getTable1()
@@ -56,3 +56,4 @@ def createtable1():
     plt.savefig('table.png',dpi=1000,transparent=True)
 
 
+create_line_chart()
