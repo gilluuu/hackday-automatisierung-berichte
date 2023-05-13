@@ -6,8 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from ggplot import *
 from fpdf import FPDF
-from text import getBericht1
-from grafiken import create_line_chart
+from text import getBericht1, gethighestyear
+from grafiken import create_line_chart, createtable1
 
 def add_text(text_class,text,page_number=""):
     if text_class == "title":
@@ -47,15 +47,15 @@ def add_text(text_class,text,page_number=""):
         pdf.set_font("UniversLTStd-LightObl", size=9)
         pdf.set_x(2)
         pdf.set_left_margin(18)
-        pdf.ln(-27)
+        pdf.ln(-25)
         pdf.set_text_color(223,66,56)
         pdf.multi_cell(40,4.5, text, align='L')
 
     if text_class == "cover_text":
         pdf.set_font("UniversLTStd-Bold", size=16)
         pdf.set_x(0)
-        pdf.set_left_margin(18)
-        pdf.multi_cell(80,4.5, text, align='L')
+        pdf.set_left_margin(37)
+        pdf.multi_cell(85,7.5, text, align='L')
 
 def add_reference(text_class,text,reference_title="",reference_origin=""):
     if text_class == "reference":
@@ -78,7 +78,6 @@ def add_image(image):
     pdf.set_left_margin(45.6)
     pdf.image(image)
 
-
 # Create a PDF report with text, graph, and table
 pdf = FPDF('P', 'mm', 'A4')
 pdf.add_font('UniversLTStd-Light','', 'UniversLTStd-Light.ttf', uni=True)
@@ -93,8 +92,11 @@ pdf.set_auto_page_break(True,5)
 
 pdf.add_page()
 pdf.image('Deckblatt.png', x=0, y=0, w=210, h=297)
-pdf.ln(40)
+pdf.ln(48)
 add_text("cover_text",text="Statistik Stadt Bern")
+pdf.ln(2)
+add_text("cover_text",text="Wohnungsmietpreiserhebung in der Stadt Bern im November "+str(gethighestyear()))
+
 
 pdf.add_page()
 pdf.set_font("Arial", size=12)
@@ -121,12 +123,14 @@ add_text("text",getBericht1())
 
 add_text("info","Anstieg innert Jahresfrist um 1,1%")
 
-pdf.ln(21)
+pdf.ln(19)
 
 add_reference("reference","Berner Index der Wohnungsmietpreise nach Wohnungsgrösse November 2018 bis 2022","Tabelle 1:","(Basis: November 2003 = 100)")
-
-
+pdf.ln(10)
+createtable1()
 create_line_chart()
+pdf.image('table.png')
+pdf.ln(10)
 add_image("./diagrams/linien_diagramm.png")
 pdf.ln(10)
 #pdf.image("./table.png")
