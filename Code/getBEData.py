@@ -101,4 +101,7 @@ def getChart1():
     for column in df.columns:
         df[column] = df[column].apply(lambda x: float(x.replace(',', '.')))
         df[column] = 100 * df[column]
+    df = df.sort_index(ascending=True)
     return(df)
+
+print(getChart1())
