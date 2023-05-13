@@ -109,7 +109,8 @@ def run_script():
     pdf.ln(2)
     add_text("cover_text", text="Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
     pdf.add_page()
-
+    pdf.image('Inhaltsverzeichnis.png', x=0, y=0, w=210, h=297)
+    pdf.add_page()
     # header-test
     add_text("header", "Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
 
@@ -147,6 +148,8 @@ def run_script():
 
     # Add the table
     # pdf.cell(0, 10, "Switzerland vs Austria Inflation (2019-2023)", ln=True, align='C')
+    pdf.add_page()
+    pdf.image('letzte_Seite.png', x=0, y=0, w=210, h=297)
     pdf.output("static/download/Wohnungsmietpreiserhebung.pdf", 'F')
 
     return render_template('message.html')
