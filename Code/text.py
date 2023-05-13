@@ -2,6 +2,7 @@ from getBEData import getChart1
 
 df = getChart1()
 #print('\n Dataframe: \n\n', df)
+df.reset_index(inplace=True)
 data = df.to_dict(orient='index')
 
 highestyear = max(data.keys())

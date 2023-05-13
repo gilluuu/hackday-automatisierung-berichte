@@ -56,7 +56,7 @@ def getTableDurchschnitt(df_roh):
 # Funktion zum Generieren der Tabelle 1.
 def getTable1():
     url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3BcxRrekN-89urzI14E0BF34fK9EthqfGn2Oi1UhLxMfjl6Sh1HQVawLTZDzEo_nFgu-OW0uPL0Id/pub?gid=1864584239&single=true&output=csv'
-    df_roh = pd.read_csv(url)
+    df_roh = pd.read_csv(url, sep=',', decimal=",")
     df = getTableIndex(df_roh)
     columns = ['STTE_ZI', 'Total_1', 'Total_2', 'Total_3', 'Total_4', 'Total_5', 'Total_Total']
     df = df[columns]
@@ -72,18 +72,31 @@ def getTable1():
     del df['index']
     df.columns = ['November ' + str(x) for x in df.columns]
 
-    for column in df.columns:
-        df[column] = df[column].apply(lambda x: float(x.replace(',', '.')))
-        df[column] = 100 * df[column]
 
-    # Veränderung berechnen. 
-    df['Veränderung in % zum Vorjahr'] = 100 - 100 * df.iloc[:,1] / df.iloc[:,0]
+    for column in df.columns:
+        try:
+            df[column] = df[column].apply(lambda x: float(x.replace(',', '.')))
+            df[column] = 100 * df[column]
+        except:
+            pass
+
+    # Veränderung berechnen.
+
+
+    """ 
+    df.iloc[:,1] = df.iloc[:,1].apply(lambda x: float(x.replace(',', '.')))
+    df.iloc[:,1] = df.iloc[:,1].astype(float)
+    df.iloc[:,0] = df.iloc[:,0].apply(lambda x: float(x.replace(',', '.')))
+    df.iloc[:,0] = df.iloc[:,0].astype(float)
+    df['Veränderung in % zum Vorjahr'] = 100 - 100 * (df.iloc[:,1]) /(df.iloc[:,0])"""
 
     # Werte auf eine Nachkommastelle runden.
-    for column in df.columns:
-        df[column] = df[column].apply(lambda x: round(x,2))
+    """for column in df.columns:
+        df[column] = df[column].apply(lambda x: round(x,2))"""
+
     return(df)
 
+getTable1()
 # Funktion zum Generieren des Chart 1. 
 def getChart1():
     url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3BcxRrekN-89urzI14E0BF34fK9EthqfGn2Oi1UhLxMfjl6Sh1HQVawLTZDzEo_nFgu-OW0uPL0Id/pub?gid=1864584239&single=true&output=csv'
