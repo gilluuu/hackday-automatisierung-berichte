@@ -78,62 +78,64 @@ def add_image(image):
     pdf.image(image)
 
 # Create a PDF report with text, graph, and table
-pdf = FPDF('P', 'mm', 'A4')
-pdf.add_font('UniversLTStd-Light','', 'UniversLTStd-Light.ttf', uni=True)
-pdf.add_font('UniversLTStd-Bold','', 'UniversLTStd-Bold.ttf', uni=True)
-pdf.add_font('UniversLTStd-LightObl','', 'UniversLTStd-LightObl.ttf', uni=True)
+def pdf_generate():
+    pdf = FPDF('P', 'mm', 'A4')
+    pdf.add_font('UniversLTStd-Light','', 'UniversLTStd-Light.ttf', uni=True)
+    pdf.add_font('UniversLTStd-Bold','', 'UniversLTStd-Bold.ttf', uni=True)
+    pdf.add_font('UniversLTStd-LightObl','', 'UniversLTStd-LightObl.ttf', uni=True)
 
-left_margin = 19
-right_margin = 18
-top_margin = 6.35
-pdf.set_margins(left_margin, top_margin, right_margin)
-pdf.set_auto_page_break(True,5)
-pdf.add_page()
-pdf.set_font("Arial", size=12)
+    left_margin = 19
+    right_margin = 18
+    top_margin = 6.35
+    pdf.set_margins(left_margin, top_margin, right_margin)
+    pdf.set_auto_page_break(True,5)
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
 
-pdf.image('Deckblatt.png', x=0, y=0, w=210, h=297)
-pdf.ln(48)
-add_text(text_class="cover_text",text="Statistik Stadt Bern")
-pdf.ln(2)
-add_text("cover_text",text="Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
-pdf.add_page()
+    pdf.image('Deckblatt.png', x=0, y=0, w=210, h=297)
+    pdf.ln(48)
+    add_text(text_class="cover_text",text="Statistik Stadt Bern")
+    pdf.ln(2)
+    add_text("cover_text",text="Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
+    pdf.add_page()
 
-#header-test
-add_text("header","Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
+    #header-test
+    add_text("header","Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
 
-# Right-aligned header
-pdf.ln(272)
-
-
-add_text("footer","Statistik Stadt Bern","3")
-pdf.ln(-255)
-
-# Add text
-add_text("title","Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
-pdf.ln(4.5)
-
-add_text("subtitle","Berner Index der Wohnungsmietpreise")
-
-pdf.ln(4.5)
-add_text("text",getBericht1())
+    # Right-aligned header
+    pdf.ln(272)
 
 
-add_text("info","Anstieg innert Jahresfrist um 1,1%")
+    add_text("footer","Statistik Stadt Bern","3")
+    pdf.ln(-255)
 
-pdf.ln(21)
+    # Add text
+    add_text("title","Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
+    pdf.ln(4.5)
 
-add_reference("reference","Berner Index der Wohnungsmietpreise nach Wohnungsgrösse November 2018 bis 2022","Tabelle 1:","(Basis: November 2003 = 100)")
+    add_text("subtitle","Berner Index der Wohnungsmietpreise")
 
-#createtable1()
-#create_line_chart()
+    pdf.ln(4.5)
+    add_text("text",getBericht1())
 
-#pdf.image("table.png")
-#add_image("./diagrams/linien_diagramm.png")
-# Add the graph
-#pdf.cell(0, 10, "Switzerland Inflation (2000-2023)", ln=True, align='C')
-#pdf.image("inflation_graph.png", x=25, y=pdf.get_y(), w=160)
-#pdf.ln(80)
 
-# Add the table
-#pdf.cell(0, 10, "Switzerland vs Austria Inflation (2019-2023)", ln=True, align='C')
-pdf.output("inflation_report.pdf", 'F')
+    add_text("info","Anstieg innert Jahresfrist um 1,1%")
+
+    pdf.ln(21)
+
+    add_reference("reference","Berner Index der Wohnungsmietpreise nach Wohnungsgrösse November 2018 bis 2022","Tabelle 1:","(Basis: November 2003 = 100)")
+
+    #createtable1()
+    #create_line_chart()
+
+    #pdf.image("table.png")
+    #add_image("./diagrams/linien_diagramm.png")
+    # Add the graph
+    #pdf.cell(0, 10, "Switzerland Inflation (2000-2023)", ln=True, align='C')
+    #pdf.image("inflation_graph.png", x=25, y=pdf.get_y(), w=160)
+    #pdf.ln(80)
+
+    # Add the table
+    #pdf.cell(0, 10, "Switzerland vs Austria Inflation (2019-2023)", ln=True, align='C')
+    pdf.output("../static/download/Wohnungsmietpreiserhebung.pdf", 'F')
+    return("OK")
