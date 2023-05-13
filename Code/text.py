@@ -1,7 +1,8 @@
 from getBEData import getChart1
 
 df = getChart1()
-print('\n Dataframe: \n\n', df)
+#print('\n Dataframe: \n\n', df)
+df.reset_index(inplace=True)
 data = df.to_dict(orient='index')
 
 highestyear = max(data.keys())
@@ -59,6 +60,7 @@ def getBericht2():
 def gethighestyear():
     return highestyear
 
-print('\n Bericht1: \n', getBericht1())
+'''print('\n Bericht1: \n', getBericht1())
 print('\n Bericht2: \n', getBericht2())
 print('\n Highest Year: \n', gethighestyear())
+'''
