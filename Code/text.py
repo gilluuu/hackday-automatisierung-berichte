@@ -59,6 +59,7 @@ def getBericht2():
 def gethighestyear():
     return highestyear
 
-print('\n Bericht1: \n', getBericht1())
+'''print('\n Bericht1: \n', getBericht1())
 print('\n Bericht2: \n', getBericht2())
 print('\n Highest Year: \n', gethighestyear())
+'''
