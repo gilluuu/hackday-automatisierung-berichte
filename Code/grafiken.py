@@ -55,5 +55,3 @@ def createtable1():
 
     plt.savefig('table.png',dpi=1000,transparent=True)
 
-
-create_line_chart()
