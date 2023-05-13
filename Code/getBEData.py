@@ -104,4 +104,4 @@ def getChart1():
     df = df.sort_index(ascending=True)
     return(df)
 
-print(getChart1())
+#print(getChart1())
