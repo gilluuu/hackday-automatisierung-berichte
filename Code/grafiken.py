@@ -53,11 +53,6 @@ def createtable1():
             cell.set_facecolor(highlight_color)
 
 
-    ax.hlines(1, 0, 1, transform=ax.get_yaxis_transform(), colors='k')
-    ax.hlines(0, 0, 1, transform=ax.get_yaxis_transform(), colors='k')
-
     plt.savefig('table.png',dpi=1000,transparent=True)
 
 
-
-createtable1()
