@@ -3,6 +3,7 @@
 
 from flask import Flask, render_template, request
 import subprocess
+import Code.getBEData as bedata
 
 app = Flask(__name__,
             static_folder='static')
@@ -13,10 +14,7 @@ def home():
 
 @app.route('/run-script', methods=['POST'])
 def run_script():
-    import Code.getBEData as bedata
-    df = bedata.getChart1()
-    message = 'Skript ausgeführt'
-    return render_template('message.html', message = message)
+    return render_template('message.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
