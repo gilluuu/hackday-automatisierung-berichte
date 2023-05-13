@@ -4,7 +4,8 @@
 from flask import Flask, render_template, request
 import subprocess
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_folder='static')
 
 @app.route('/')
 def home():
