@@ -9,7 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from ggplot import *
 from fpdf import FPDF
-from text import getBericht1, gethighestyear
+from text import getBericht1, gethighestyear, getBericht2
 # from grafiken import create_line_chart, createtable1
 app = Flask(__name__,
             static_folder='static')
@@ -109,7 +109,8 @@ def run_script():
     pdf.ln(2)
     add_text("cover_text", text="Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
     pdf.add_page()
-
+    pdf.image('Inhaltsverzeichnis.png', x=0, y=0, w=210, h=297)
+    pdf.add_page()
     # header-test
     add_text("header", "Wohnungsmietpreiserhebung in der Stadt Bern im November 2022")
 
@@ -134,7 +135,12 @@ def run_script():
 
     add_reference("reference", "Berner Index der Wohnungsmietpreise nach Wohnungsgrösse November 2018 bis 2022",
                   "Tabelle 1:", "(Basis: November 2003 = 100)")
-
+    pdf.ln(20)
+    add_text("text",getBericht2())
+    pdf.ln(10)
+    add_text("info", "2-Zimmerwohnungen 28,1% teurer als 2003")
+    pdf.ln(20)
+    add_reference("reference","Entwicklung des Berner Index der Wohnungsmietpreise nach Wohnungsgrösse seit 2003","Grafik 1:","(Basis: November 2003 = 100)")
     # createtable1()
     # create_line_chart()
 
@@ -147,6 +153,8 @@ def run_script():
 
     # Add the table
     # pdf.cell(0, 10, "Switzerland vs Austria Inflation (2019-2023)", ln=True, align='C')
+    pdf.add_page()
+    pdf.image('letzte_Seite.png', x=0, y=0, w=210, h=297)
     pdf.output("static/download/Wohnungsmietpreiserhebung.pdf", 'F')
 
     return render_template('message.html')
